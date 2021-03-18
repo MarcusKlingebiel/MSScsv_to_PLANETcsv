@@ -9,4 +9,4 @@ Executing the program by typing:
 ```python MSScsv_to_PLANETcsv.py /path_to_MSS_csv_file/MSS_file.csv```
 
 The program will produce the following files:
-MSS_file_planet.csv and MSS_file.kml
+```MSS_file_planet.csv``` and ```MSS_file.kml```
