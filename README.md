@@ -3,9 +3,9 @@
 This routine transforms an existing MSS csv file into a csv file with the endfix "*_planet.csv", which can be uploaded to the PLANET system. 
 
 In addition, several other files are produced:
-- a kml file, which can be shown in Google Earth or Windy. 
-- a txt file, to easily look at the data
-- an Excel file (including latitude and longitude in degree+minutes+seconds)
+- a kml file, which can be shown in Google Earth or Windy,
+- a txt file, to easily look at the data,
+- an Excel file (including latitude and longitude in degree+minutes+seconds).
 
 Executing the program by typing: 
 
