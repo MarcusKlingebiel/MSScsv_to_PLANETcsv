@@ -106,4 +106,44 @@ for row in range(len(file.index)):
 kml.save(directory + filename+'.kml');
 
 print("kml file created: " + directory + filename+'.kml')
+
+
+#Save track to txt file ************************************************************************************
+ex_file = pd.DataFrame(file.index).astype(int)
+ex_file["Lat"] = file["Lat (+-90)"].values
+ex_file["Lon"] = file["Lon (+-180)"].values
+ex_file["FL"] = file["Flightlevel"].values
+ex_file["Press"] = file["Pressure (hPa)"].values
+ex_file["Dist."] = file["Leg dist. (km)"].values
+ex_file["Cum dist."] = file["Cum. dist. (km)"].values
+np.savetxt(directory +filename+'.txt', ex_file, fmt='%d %5.2f %5.2f %5.2f %5.2f %5.2f %5.2f', delimiter = ",",header="Lat   Lon   FL    Press   Dist.   Cum. dist")
+print("txt file created: " + directory + filename+'.txt')
+
+
+#Save track to excel file************************************************************************************
+def dd2dms(deg):
+     d = int(deg)
+     md = abs(deg - d) * 60
+     m = int(md)
+     sd = (md - m) * 60
+     
+     return str(d)+"° "+str(m)+"' "+str("{:6.3f}".format(sd))+"''"
+     #return [d, m, sd]
+    
+    
+excel = file.iloc[:,:7]
+
+dms_lat = np.zeros(len(file.index)).astype(str)
+dms_lon = np.zeros(len(file.index)).astype(str)
+for i in range(len(dms_lat)):
+    dms_lat[i] = dd2dms(file["Lat (+-90)"].values[i]) + " N"
+    dms_lon[i] = dd2dms(file["Lon (+-180)"].values[i]) + " E"
+
+excel["dms lat"] = dms_lat
+excel["dms lon"] = dms_lon
+
+
+excel.to_excel(directory +filename+".xlsx")
+
+print("Excel file created: " + directory + filename+'.xlsx')
 print("DONE!")
