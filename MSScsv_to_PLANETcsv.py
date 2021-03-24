@@ -108,26 +108,17 @@ kml.save(directory + filename+'.kml');
 print("kml file created: " + directory + filename+'.kml')
 
 
-#Save track to txt file ************************************************************************************
-ex_file = pd.DataFrame(file.index).astype(int)
-ex_file["Lat"] = file["Lat (+-90)"].values
-ex_file["Lon"] = file["Lon (+-180)"].values
-ex_file["FL"] = file["Flightlevel"].values
-ex_file["Press"] = file["Pressure (hPa)"].values
-ex_file["Dist."] = file["Leg dist. (km)"].values
-ex_file["Cum dist."] = file["Cum. dist. (km)"].values
-np.savetxt(directory +filename+'.txt', ex_file, fmt='%d %5.2f %5.2f %5.2f %5.2f %5.2f %5.2f', delimiter = ",",header="Lat   Lon   FL    Press   Dist.   Cum. dist")
-print("txt file created: " + directory + filename+'.txt')
+
 
 
 #Save track to excel file************************************************************************************
 def dd2dms(deg):
      d = int(deg)
      md = abs(deg - d) * 60
-     m = int(md)
-     sd = (md - m) * 60
+     #m = int(md)
+     #sd = (md - m) * 60
      
-     return str(d)+"° "+str(m)+"' "+str("{:6.3f}".format(sd))+"''"
+     return str(d)+"° "+str("{:6.3f}".format(md))+"' "#+str("{:6.3f}".format(sd))+"''"
      #return [d, m, sd]
     
     
@@ -141,9 +132,24 @@ for i in range(len(dms_lat)):
 
 excel["dms lat"] = dms_lat
 excel["dms lon"] = dms_lon
-
+excel.index = file["LocPlanet"].values
 
 excel.to_excel(directory +filename+".xlsx")
 
 print("Excel file created: " + directory + filename+'.xlsx')
+
+#Save track to txt file ************************************************************************************
+#new Txt file
+ex_file = pd.DataFrame(file.index).astype(int)
+ex_file["Lat"] = file["Lat (+-90)"].values
+ex_file["Lon"] = file["Lon (+-180)"].values
+ex_file["Lat dms"] = excel["dms lat"].values
+ex_file["Lon dms"] = excel["dms lon"].values
+ex_file["Empty"] = file["Empty0"].values
+ex_file["Location"]= excel.index
+
+np.savetxt(directory +filename+'.txt', ex_file, fmt='%s %5.2f %5.2f %s %s %s %s', delimiter = ",",header="Lat   Lon   Lat_dm         Lon_dm          Location")
+print("txt file created: " + directory + filename+'.txt')
+
+
 print("DONE!")
