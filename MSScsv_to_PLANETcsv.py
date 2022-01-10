@@ -6,6 +6,9 @@ import simplekml
 import os
 import sys
 
+import gpxpy
+import gpxpy.gpx
+
 
 
 #Read file path from command line
@@ -151,5 +154,37 @@ ex_file["Location"]= excel.index
 np.savetxt(directory +filename+'.txt', ex_file, fmt='%s %5.2f %5.2f %s %s %s %s', delimiter = ",",header="Lat   Lon   Lat_dm         Lon_dm          Location")
 print("txt file created: " + directory + filename+'.txt')
 
+
+#Save track to gpx file ************************************************************************************
+
+gpx = gpxpy.gpx.GPX()
+
+# Create first track in our GPX:
+gpx_track = gpxpy.gpx.GPXTrack()
+gpx.tracks.append(gpx_track)
+
+# Create first segment in our GPX track:
+gpx_segment = gpxpy.gpx.GPXTrackSegment()
+gpx_track.segments.append(gpx_segment)
+gpx_track.name = filename
+
+# Create points:
+
+for i in range(len(dms_lat)):
+    gpx_segment.points.append(gpxpy.gpx.GPXTrackPoint(file["Lat (+-90)"].values[i] , file["Lon (+-180)"].values[i]))
+
+    #gpx_wps = gpxpy.gpx.GPXWaypoint()
+    #gpx_wps.latitude = file["Lat (+-90)"].values[i]
+    #gpx_wps.longitude= file["Lon (+-180)"].values[i]
+    #gpx_wps.symbol = "Marks-Mooring-Float"
+    #gpx_wps.name = str(file.index[i])
+    #gpx.waypoints.append(gpx_wps)
+
+
+
+print("gpx file created: " + directory + filename+'.gpx')
+
+with open(directory +filename+".gpx", "w") as f:
+    f.write( gpx.to_xml())
 
 print("DONE!")
