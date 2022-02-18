@@ -1,6 +1,8 @@
 # MSScsv_to_PLANETcsv
 
-This routine transforms an existing MSS csv file into a csv file with the endfix "*_planet.csv", which can be uploaded to the PLANET system. 
+This routine transforms an existing MSS csv file into a csv file with the endfix "*_planet.csv", which can be uploaded to the PLANET system. You might have to install the module "simplekml". Do that with the command:
+
+```pip install simplekml
 
 In addition, several other files are produced:
 - a kml file, which can be shown in Google Earth or Windy,
