@@ -12,9 +12,10 @@ Executing the program by typing:
 
 ```python MSScsv_to_PLANETcsv.py /path_to_MSS_csv_file/MSS_file.csv```
 
-You might have to install the modules "simplekml" and "gpxpy". Do that with the command:
+You might have to install the modules "simplekml" and "gpxpy". Do that with the commands:
 
 ```pip install simplekml```
+
 ```pip install gpxpy```
 
 The program will produce the following files:
