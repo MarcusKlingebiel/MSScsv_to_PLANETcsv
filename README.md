@@ -4,7 +4,7 @@ This routine transforms an existing MSS csv file into a csv file with the endfix
 
 In addition, several other files are produced:
 - a kml file, which can be shown in Google Earth or Windy,
-- a txt file (including latitude and longitude in degree+minutes)
+- a txt file (including latitude and longitude in degree+minutes),
 - an Excel file (including latitude and longitude in degree+minutes)
 - a gpx file.
 
